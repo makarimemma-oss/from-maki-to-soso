@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday 🎂</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #fdfbf7;
+      font-family: "Poppins", sans-serif;
+      color: #444;
+      text-align: center;
+      min-height: 100vh;
+      position: relative;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+
+    h1 {
+      color: #e26a8a;
+      margin-top: 60px;
+      font-size: 2.8em;
+      z-index: 2;
+      position: relative;
+    }
+
+    p {
+      max-width: 600px;
+      margin: 20px auto;
+      font-size: 1.1em;
+      line-height: 1.6;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Decorations */
+    .decor {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+      opacity: 0.9;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cat1 { top: 10%; left: 5%; }
+    .cat2 { top: 10%; right: 1%; }
+    .gift1 { bottom: 20%; left: 5%; }
+    .gift2 { bottom: 20%; right: 5%; }
+    .gift3 { bottom: 15%; left: 45%; }
+    .gift4 {bottom:;left:;}
+
+    /* Cake */
+    .cake {
+      display: block;
+      margin: 60px auto;
+      width: 260px;
+      height: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      background-color: #e26a8a;
+      top: -10px;
+      opacity: 0.8;
+      border-radius: 50%;
+      animation: fall linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(720deg);
+      }
+    }
+
+    /* Back button */
+    .back-btn {
+      display: inline-block;
+      margin: 60px auto;
+      padding: 12px 24px;
+      background-color: #e26a8a;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background 0.3s;
+      z-index: 3;
+      position: relative;
+    }
+
+    .back-btn:hover {
+      background-color: #c95b7a;
+    }
+
+    /* Spacer to ensure scroll room */
+    .spacer {
+      height: 150px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Decorations -->
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExenU5YzN3YzJkeDZlZXdjNHBiaWZlb3d1dDh6NTIyYmV4aG03N3czcyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/uzIjBz29ZnOTtyuPcF/giphy.gif" class="decor cat1" alt="Cat couple">
+  <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3NDZhdGEyOHZiOW96aXg1ZTlwMWM3cWhoaXpzZXpmNXNtYzJubmVoMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/Xw3pnKSKhcH7ozPozR/giphy.gif" alt="Cute cat">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExYm9xZTVscTczdWxyaWltNnVrMW5mOGMzdGp3M3pxa3dxMXppeWU4biZlcD12MV9naWZzX3NlYXJjaCZjdD1n/KmxmoHUGPDjfQXqGgv/giphy.gif" class="decor gift1" alt="Gift box">
+  <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3M2VxdGI0bG9vNWFqYnZ1MHM0aDN0ZjRjdDl6enRtdWdvNTJhZTNrbyZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/Jqzc9fbHtciNckOAgl/giphy.gif" class="decor gift2" alt="Gift box">
+  <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExa2N2bnhiMTZlOThqMmc5MzNka2p1bHRqdHM0ZWQzeWZuZWNibHZoMyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/k6SImaefvartv71xUc/giphy.gif" class="decor gift3" alt="Gift box">
+
+  <!-- Cake -->
+  <img src="https://media.giphy.com/media/v1.Y2lkPWVjZjA1ZTQ3eGg0eXFjeWdxYXZ3Y2Z3anoxZnJ2dXY5M2RxYjFjZDRxMWd5ZnQ5OSZlcD12MV9naWZzX3JlbGF0ZWQmY3Q9Zw/mUuxdzdkpF5iV5Vr1I/giphy.gif"Birthday Cake" class="cake">
+
+  <!-- Text -->
+  <div class="content">
+    <h1>Happy 20th Birthday, My Love 🎉</h1>
+    <p>
+      You’re officially 20 — two decades of being the most wonderful, beautiful soul.  
+      I wish I could hand you the world wrapped in pink ribbons and laughter.  
+      Instead, I give you this — my words, my heart, and a page full of love.  
+      You deserve joy that lasts the whole year, not just today.  
+    </p>
+    <div class="spacer"></div>
+    <a href="letters.html" class="back-btn">Back</a>
+  </div>
+
+  <!-- Confetti -->
+  <script>
+    const colors = ["#e26a8a", "#ffd166", "#95d5b2", "#74c0fc", "#ffadad"];
+    for (let i = 0; i < 80; i++) {
+      const conf = document.createElement("div");
+      conf.classList.add("confetti");
+      conf.style.left = Math.random() * 100 + "vw";
+      conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+      conf.style.animationDuration = 3 + Math.random() * 4 + "s";
+      conf.style.animationDelay = Math.random() * 3 + "s";
+      document.body.appendChild(conf);
+    }
+  </script>
+
+</body>
+</html>

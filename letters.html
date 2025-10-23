@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Letters — For You 💌</title>
+  <style>
+    :root{
+      --bg-1:#07102a;
+      --bg-2:#061227;
+      --card-bg: rgba(255,255,255,0.03);
+      --accent:#7fb7ff;
+      --muted:#c9d9ff;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Quicksand", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,var(--bg-1),var(--bg-2));
+      color:var(--muted);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* layout */
+    .page {
+      min-height:100vh;
+      box-sizing:border-box;
+      padding: clamp(18px, 4vw, 48px);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:20px;
+    }
+
+    header{
+      text-align:center;
+      z-index:2;
+      margin-top:6vh;
+    }
+    header h1{
+      margin:0;
+      font-size:clamp(20px,3.2vw,30px);
+      color:var(--accent);
+      letter-spacing:0.6px;
+    }
+    header p{
+      margin:8px 0 0;
+      color:rgba(233,243,255,0.8);
+      font-size:clamp(12px,1.6vw,15px);
+    }
+
+    /* container for the cards */
+    .grid {
+      margin-top:24px;
+      width:100%;
+      max-width:980px;
+      display:flex;
+      gap:18px;
+      justify-content:center;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      z-index:2;
+      padding-bottom:40px;
+    }
+
+    /* card */
+    .card {
+      background:var(--card-bg);
+      border:1px solid rgba(127,183,255,0.08);
+      min-width:210px;
+      max-width:260px;
+      width:30%;
+      padding:18px;
+      border-radius:14px;
+      box-shadow: 0 8px 24px rgba(4,8,20,0.25);
+      text-align:center;
+      cursor:pointer;
+      color:var(--muted);
+      transition: transform .22s ease, box-shadow .22s ease, background .22s;
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      align-items:center;
+    }
+
+    .card.small { width:220px; } /* fallback */
+
+    .card:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(20,40,80,0.28);
+      background: linear-gradient(180deg, rgba(127,183,255,0.03), rgba(255,255,255,0.02));
+    }
+
+    .icon {
+      width:70px;
+      height:50px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:8px;
+      background: linear-gradient(180deg, rgba(127,183,255,0.12), rgba(127,183,255,0.06));
+      color:var(--accent);
+      font-size:28px;
+      box-shadow: inset 0 -6px 12px rgba(0,0,0,0.08);
+    }
+
+    .title {
+      font-weight:700;
+      color: #eaf3ff;
+      font-size:1rem;
+      margin:0;
+    }
+    .sub {
+      margin:0;
+      color:rgba(233,243,255,0.7);
+      font-size:0.9rem;
+      line-height:1.25;
+    }
+
+    /* small footprint on mobile */
+    @media (max-width:880px){
+      .card { width:48%; }
+      .icon { width:60px;height:44px;font-size:24px; }
+    }
+    @media (max-width:520px){
+      .grid { gap:12px; }
+      .card { width:100%; max-width:560px; padding:16px; border-radius:12px; }
+      .icon { width:52px;height:38px;font-size:20px; }
+    }
+
+    /* footer nav */
+    .nav {
+      width:100%;
+      max-width:980px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-top:8px;
+      gap:10px;
+    }
+    .back {
+      color:rgba(233,243,255,0.85);
+      text-decoration:none;
+      padding:8px 14px;
+      border-radius:10px;
+      border:1px solid rgba(127,183,255,0.08);
+      background:transparent;
+      transition: background .18s;
+    }
+    .back:hover { background: rgba(127,183,255,0.04); }
+
+    /* small helper to ensure cards are clickable by keyboard */
+    .card:focus { outline: 3px solid rgba(127,183,255,0.12); outline-offset: 4px; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <h1>Letters for You 💌</h1>
+      <p>Tap any card to open the letter — simple and cozy.</p>
+    </header>
+
+    <div class="grid" role="list" aria-label="Letters list">
+      <button class="card" role="listitem" onclick="location.href='miss-you.html'">
+        <div class="icon" aria-hidden="true">💌</div>
+        <div class="title">Open when you miss me</div>
+        <div class="sub">A little letter for the quiet moments.</div>
+      </button>
+
+      <button class="card" role="listitem" onclick="location.href='future.html'">
+        <div class="icon" aria-hidden="true">💭</div>
+        <div class="title">For how I see us & our future</div>
+        <div class="sub">Words about dreams, us, and the life we’ll build.</div>
+      </button>
+
+      <button class="card" role="listitem" onclick="location.href='happy-bday.html'">
+        <div class="icon" aria-hidden="true">🎂</div>
+        <div class="title">Happy Birthday</div>
+        <div class="sub">A special page for your birthday — customize later.</div>
+      </button>
+    </div>
+
+    <div class="nav" aria-hidden="true">
+      <a class="back" href="songs.html">← Back to Songs</a>
+      <div></div>
+    </div>
+  </div>
+</body>
+</html>
