@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You 💙</title>
+  <style>
+   /* Star layer & star styles */
+#star-layer {
+  position: absolute; /* placed at top-left of document */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; /* will be resized by script to match page height */
+  pointer-events: none; /* don't block clicks */
+  z-index: 0; /* behind content — raise if needed */
+  overflow: visible;
+}
+
+.star {
+  position: absolute;
+  background: #ffffff;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.9);
+  box-shadow: 0 0 8px rgba(255,255,255,0.25);
+  transition: opacity 1.2s ease, transform 1.2s ease;
+  will-change: opacity, transform;
+}
+
+/* twinkle (slow subtle) — we animate scale only when visible to keep perf good */
+.star.twinkle {
+  animation: twink 2.6s ease-in-out infinite alternate;
+}
+@keyframes twink {
+  from { transform: scale(0.95); opacity: 0.6; }
+  to   { transform: scale(1.25); opacity: 1; }
+}
+
+/* visible state */
+.star.visible {
+  opacity: 0.9;
+  transform: scale(1);
+}
+
+/* ensure your main content sits above the stars (increase if necessary) */
+main, .content, .card, header { position: relative; z-index: 2; }
+    body {
+      background-color: #0b1a33;
+      color: #f0f4ff;
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+      
+    }
+
+    .intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .intro h1 {
+      font-size: 2rem;
+      color: #cdd9ff;
+      margin-bottom: 1.5rem;
+    }
+
+    .start-btn {
+      background-color: #173b70;
+      color: #f0f4ff;
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .start-btn:hover {
+      background-color: #2959a3;
+    }
+
+    .content {
+      display: none;
+      padding: 50px 20px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: #bcd2ff;
+    }
+
+    .list {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .list-item {
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin: 10px 0;
+      font-size: 1.05rem;
+      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(10px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    footer {
+      margin-top: 40px;
+      font-style: italic;
+      color: #aebee8;
+    }
+  </style>
+</head>
+<body>
+  <div id="star-layer" aria-hidden="true"></div>
+<script>
+  function generateStars() {
+    const numStars = 120; // more coverage for long pages
+    const pageHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight
+    );
+
+    // clear existing stars if any
+    document.querySelectorAll('.star').forEach(s => s.remove());
+
+    for (let i = 0; i < numStars; i++) {
+      const star = document.createElement('div');
+      const size = Math.random() * 3 + 1;
+      star.classList.add('star');
+      star.style.width = `${size}px`;
+      star.style.height = `${size}px`;
+      star.style.top = `${Math.random() * pageHeight}px`;
+      star.style.left = `${Math.random() * 100}%`;
+      star.style.opacity = 0; // hidden initially
+      star.style.animationDelay = `${Math.random() * 3}s`;
+      document.body.appendChild(star);
+    }
+  }
+
+  // fade stars in as you scroll
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY + window.innerHeight;
+    document.querySelectorAll('.star').forEach(star => {
+      const starTop = star.offsetTop;
+      if (scrollTop > starTop) {
+        star.style.transition = 'opacity 1.3s ease-out';
+        star.style.opacity = 0.8;
+      }
+    });
+  });
+
+  // generate stars on load and whenever the page height changes
+  window.addEventListener('load', generateStars);
+  window.addEventListener('resize', generateStars);
+</script>
+
+  <div class="intro" id="intro">
+    <h1>Hey baby, a little something for you 💙</h1>
+    <button class="start-btn" onclick="showContent()">Start</button>
+  </div>
+
+  <div class="content" id="content">
+  <h2>Things I Love About You 💙</h2>
+  <div class="list" id="list">
+    <div class="list-item">i love you</div>
+    <div class="list-item">i love your kindness</div>
+    <div class="list-item">your smile the prettiest</div>
+    <div class="list-item">your eyes the shape, the color everything</div>
+    <div class="list-item">your hair</div>
+    <div class="list-item">how sweet you're</div>
+    <div class="list-item">how gentle everything is around you</div>
+    <div class="list-item">your voice</div>
+    <div class="list-item">your tone when you baby me</div>
+    <div class="list-item">your laugh</div>
+    <div class="list-item">your hands and fingers</div>
+    <div class="list-item">your neck and how the necklace falls around it</div>
+    <div class="list-item">i love your comfort</div>
+    <div class="list-item">your lipsss shape and shade so kissable</div>
+    <div class="list-item">your cheeks 😋</div>
+    <div class="list-item">how reassuring you are</div>
+    <div class="list-item">how smart you're (my favorite nerd)</div>
+    <div class="list-item">the way you love and care for your friends and others</div>
+    <div class="list-item">how strong you're in face of everything</div>
+    <div class="list-item">how weak you get around me</div>
+    <div class="list-item">how your voice drops at times and i feel like you are hugging me</div>
+    <div class="list-item">i love how hard you try for everything</div>
+    <div class="list-item">how calm it feels with you</div>
+    <div class="list-item">and how you try to silent all the overthinking</div>
+    <div class="list-item">the way you put feelings into words</div>
+    <div class="list-item">how good you are at reading into things</div>
+    <div class="list-item">your love for cats (not that orange sticker tho)</div>
+    <div class="list-item">how cute you sound when talking about marush</div>
+    <div class="list-item">the way you like art and share weird things with me</div>
+    <div class="list-item">you are a good listener</div>
+    <div class="list-item">how you yearn for me</div>
+    <div class="list-item">the way you laugh at my silly jokes</div>
+    <div class="list-item">how easy life gets around you</div>
+    <div class="list-item">how a text could fix everything</div>
+    <div class="list-item">YOUR KISSES</div>
+    <div class="list-item">you speaking arabic</div>
+    <div class="list-item">you saying my name</div>
+    <div class="list-item">you calling me baby</div>
+    <div class="list-item">you calling me maki</div>
+    <div class="list-item">saying you're mine and im all yours</div>
+    <div class="list-item">your honesty</div>
+    <div class="list-item">how you check on me no matter what</div>
+    <div class="list-item">how cute you sound making mistakes</div>
+    <div class="list-item">how adorable you sound complaining about your cheeks</div>
+    <div class="list-item">the way i want to be better with you</div>
+    <div class="list-item">the way you think deeply about things</div>
+    <div class="list-item">the way you give me other perspectives that i did not think about</div>
+    <div class="list-item">how smart your jokes are</div>
+    <div class="list-item">you're funny (personal clown)</div>
+    <div class="list-item">how you make me giggle like a child around you</div>
+    <div class="list-item">how hungry for success you are</div>
+    <div class="list-item">and how you see positive things when i can't</div>
+    <div class="list-item">how you sound so interested in me</div>
+    <div class="list-item">i love your i miss yous</div>
+    <div class="list-item">how you remember things</div>
+    <div class="list-item">how careful you are with us</div>
+    <div class="list-item">how invested you are in us</div>
+    <div class="list-item">i love your kind heart</div>
+    <div class="list-item">how you sound when you are sleepy</div>
+    <div class="list-item">i love when you decide to tell me random facts about the world</div>
+    <div class="list-item">how you update me on drama that i don’t know</div>
+    <div class="list-item">i love the facts about yourself that you drop randomly</div>
+    <div class="list-item">how suspicious you get when i ask you about things that concern you</div>
+    <div class="list-item">how you support me in things</div>
+    <div class="list-item">how the day turns for the better when you are around</div>
+    <div class="list-item">how important the relationship sounds to you</div>
+    <div class="list-item">the random phone calls</div>
+    <div class="list-item">I LOVE your "i love yous"</div>
+    <div class="list-item">how you let me participate in your "me time"</div>
+    <div class="list-item">how helpful you are</div>
+    <div class="list-item">how shy you get at times</div>
+    <div class="list-item">your loyalty</div>
+    <div class="list-item">how distance feels bearable around you</div>
+    <div class="list-item">your patience</div>
+    <div class="list-item">how good of an artist you are</div>
+    <div class="list-item">how i feel special to you</div>
+    <div class="list-item">your curiosity in general</div>
+    <div class="list-item">how you are both dreamy and logical</div>
+    <div class="list-item">how protective you get of people you like</div>
+    <div class="list-item">how you overcome all the harsh things</div>
+    <div class="list-item">i love your soul i really do</div>
+    <div class="list-item">you feel like my soulmate</div>
+    <div class="list-item">how unpredictable you are at times</div>
+    <div class="list-item">i love your name and how it rolls on my tongue</div>
+    <div class="list-item">how you appreciate things around you</div>
+    <div class="list-item">how you keep trying for us</div>
+    <div class="list-item">i love your love</div>
+    <div class="list-item">i love the way you breathe</div>
+    <div class="list-item">the way you talk</div>
+    <div class="list-item">your french accent</div>
+    <div class="list-item">i love when you tease</div>
+    <div class="list-item">your attitude</div>
+    <div class="list-item">when you get mean sometimes</div>
+    <div class="list-item">your views and opinions</div>
+    <div class="list-item">i love your height</div>
+    <div class="list-item">your singing</div>
+    <div class="list-item">your respect for boundaries</div>
+    <div class="list-item">i love your favorite color</div>
+    <div class="list-item">i love your taste in music</div>
+    <div class="list-item">you don't misunderstand me when i'm shy</div>
+    <div class="list-item">all the little things you save up in your memory</div>
+    <div class="list-item">you respect me and my feelings</div>
+    <div class="list-item">how you are open to me</div>
+    <div class="list-item">your energy as a whole</div>
+    <div class="list-item">how vulnerable i can be with you</div>
+    <div class="list-item">you're mature</div>
+    <div class="list-item">i can say the most weird thing and it will be okay with you</div>
+    <div class="list-item">the way you make my heart race</div>
+    <div class="list-item">the way you make me speechless</div>
+    <div class="list-item">the butterflies you give me</div>
+    <div class="list-item">i love your face and its shape</div>
+    <div class="list-item">how talented with words you are</div>
+    <div class="list-item">how you were not afraid of emotions</div>
+    <div class="list-item">how you encourage me to speak and communicate</div>
+    <div class="list-item">you're gorgeous my lady — like pure beauty</div>
+    <div class="list-item">how love just fits you so lovably, so easy and beautiful to love</div>
+    <div class="list-item">how soft to the touch you seem</div>
+    <div class="list-item">how sensitive you are — i just want to hold you</div>
+    <div class="list-item">it's all about honesty with you</div>
+    <div class="list-item">when you get angry at me for something stupid i did and show me my place and that i need to fix it</div>
+    <div class="list-item">you're really a good person and i mean it — i really do believe you are a good human being</div>
+    <div class="list-item">how helpful you are not just with me but with everyone around you or even animals</div>
+    <div class="list-item">the way you say "uh huh", in a teasing tone — so adorable!!!!</div>
+    <div class="list-item">how you match my mood</div>
+    <div class="list-item">how you put me in my place when i'm being stupid</div>
+    <div class="list-item">your different accents 😭 not the Indian tho</div>
+    <div class="list-item">how you take me with you for bath time</div>
+    <div class="list-item">how the hard conversations are bearable around you</div>
+    <div class="list-item">you make me happy just by thinking about you</div>
+    <div class="list-item">your "goodnight" and "good morning"</div>
+    <div class="list-item">the excited "heyyyy" you give me</div>
+    <div class="list-item">the way you spam my phone</div>
+    <div class="list-item">i love your whole existence</div>
+    <div class="list-item">how sleepy i get around you</div>
+    <div class="list-item">how you sound sometimes like a little kid</div>
+    <div class="list-item">how much of a flirt you are</div>
+    <div class="list-item">i love your goals in life</div>
+    <div class="list-item">how mean you get at times (don’t be too mean for too long, i get scared 😭)</div>
+    <div class="list-item">how you spoil me</div>
+    <div class="list-item">how you love so deeply</div>
+    <div class="list-item">our long talks</div>
+    <div class="list-item">you stay up with me</div>
+    <div class="list-item">how you include me in things in your life</div>
+    <div class="list-item">you don't really swear around me</div>
+    <div class="list-item">the silly nicknames you call me</div>
+    <div class="list-item">how you send me cats you find randomly when you're out</div>
+    <div class="list-item">the playlist and songs you send me</div>
+    <div class="list-item">you always try to reassure me</div>
+    <div class="list-item">your jealousy</div>
+    <div class="list-item">the jewellery you wear on your hands and neck</div>
+    <div class="list-item">how you defend me — how you defend us</div>
+    <div class="list-item">how you yap to me</div>
+    <div class="list-item">your good days</div>
+    <div class="list-item">your bad days</div>
+    <div class="list-item">you sound like home</div>
+    <div class="list-item">you feel safe and warm</div>
+    <div class="list-item">you feel like i'm covered with a blanket and warm chocolate in hand in the middle of winter</div>
+    <div class="list-item">i love that i'm the luckiest to have you</div>
+    <div class="list-item">the way my heart jumps hearing your first word on a call</div>
+    <div class="list-item">how you are like super cooool</div>
+    <div class="list-item">i don't feel used — you make a person feel cared about</div>
+    <div class="list-item">you would never do me or anyone dirty</div>
+    <div class="list-item">the kind of person you just stare at and never get bored or tired</div>
+    <div class="list-item">how forgiving you are</div>
+    <div class="list-item">your empathy to those around you</div>
+    <div class="list-item">your seriousness</div>
+    <div class="list-item">you make time for us</div>
+    <div class="list-item">how you talk about our future together</div>
+    <div class="list-item">i love that you allowed me to match the pfp with you</div>
+    <div class="list-item">how you fight that you love me more (you don't 😌)</div>
+    <div class="list-item">when you send or repost things about us</div>
+    <div class="list-item">how you act whenever we play chess — even the cheap tricks of getting me distracted</div>
+    <div class="list-item">your voice messages</div>
+    <div class="list-item">your clinginess</div>
+    <div class="list-item">your skin</div>
+    <div class="list-item">i said smart before but fr you are clever in life in general</div>
+    <div class="list-item">how polite you are</div>
+    <div class="list-item">a wonderful company</div>
+    <div class="list-item">you're charming (scary cause people around you are impressed)</div>
+    <div class="list-item">your attention on me</div>
+    <div class="list-item">your views on life and religion</div>
+    <div class="list-item">how your profile is always stalking my reposts</div>
+    <div class="list-item">you love purely</div>
+    <div class="list-item">how confused you sound when i'm mentioning random things and you have no idea what i'm saying</div>
+    <div class="list-item">how you miss me even when i'm around</div>
+    <div class="list-item">you motivate me to always do better</div>
+    <div class="list-item">you are fun to be around</div>
+    <div class="list-item">you mention and talk about me to your friends</div>
+    <div class="list-item">how you give me advice and it works</div>
+    <div class="list-item">the way you breathe</div>
+    <div class="list-item">the way you celebrate my little wins like they're yours</div>
+    <div class="list-item">the way you never settle for “good enough”</div>
+    <div class="list-item">how i want to grow beside you, not away from you</div>
+    <div class="list-item">how i imagine us laughing about these days years from now</div>
+    <div class="list-item">how i dream of the little life we’ll build together</div>
+    <div class="list-item">the comfort of your voice and words after a long day</div>
+    <div class="list-item">how i want to tell you everything first</div>
+    <div class="list-item">how i’ll never stop finding new reasons to love you</div>
+    <div class="list-item">everything about you</div>
+    <div class="list-item">you.</div>
+  </div>
+</div>
+
+
+      <div class="list-item">And so much more that I can’t put into words 💙</div>
+
+    </div>
+<div style="text-align:center; margin-top: 40px;">
+  <a href="songs.html" class="next-button">Next →</a>
+</div>
+
+<style>
+  .next-button {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #1a2b4c;
+    color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .next-button:hover {
+    background-color: #27406d;
+    transform: translateY(-2px);
+  }
+</style>
+
+    <footer>— with all my love, always 💙</footer>
+  </div>
+
+  <script>
+    function showContent() {
+      const intro = document.getElementById("intro");
+      const content = document.getElementById("content");
+
+      intro.style.opacity = "0";
+      setTimeout(() => {
+        intro.style.display = "none";
+        content.style.display = "block";
+        window.scrollTo(0, 0);
+
+        // Animate items in sequence
+        const items = document.querySelectorAll(".list-item");
+        items.forEach((item, index) => {
+          item.style.animationDelay = `${index * 0.07}s`;
+        });
+      }, 1000);
+    }
+  </script>
+<script>
+(function(){
+  const STAR_COUNT = 140; // adjust density
+  const layer = document.getElementById('star-layer');
+
+  if (!layer) return;
+
+  // create stars container and helper functions
+  function clearStars() {
+    while (layer.firstChild) layer.removeChild(layer.firstChild);
+  }
+
+  function setLayerHeight() {
+    // full document height (covers all content)
+    const pageHeight = Math.max(
+      document.body.scrollHeight,
+      document.documentElement.scrollHeight,
+      document.documentElement.clientHeight
+    );
+    layer.style.height = pageHeight + 'px';
+  }
+
+  function createStars() {
+    clearStars();
+    setLayerHeight();
+
+    const pageHeight = parseFloat(layer.style.height);
+    for (let i = 0; i < STAR_COUNT; i++) {
+      const s = document.createElement('div');
+      s.className = 'star';
+      const size = Math.random() * 3.5 + 1; // 1 - 4.5 px
+      s.style.width = size + 'px';
+      s.style.height = size + 'px';
+      // place across full page height in px
+      s.style.top = Math.floor(Math.random() * (pageHeight - 10)) + 'px';
+      s.style.left = Math.floor(Math.random() * 100) + '%';
+      // stagger twinkle classes so it looks natural
+      if (Math.random() > 0.5) s.classList.add('twinkle');
+      layer.appendChild(s);
+    }
+  }
+
+  // IntersectionObserver to reveal a star when it enters the viewport
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const el = entry.target;
+      if (entry.isIntersecting) {
+        // reveal
+        el.classList.add('visible');
+      } else {
+        // optionally hide again when scrolled past (comment out if you want persistent)
+        // el.classList.remove('visible');
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '200px', // reveal a bit earlier
+    threshold: 0.001
+  });
+
+  function observeStars() {
+    document.querySelectorAll('#star-layer .star').forEach(s => {
+      io.observe(s);
+    });
+  }
+
+  // regenerate on resize / content changes
+  function rebuild() {
+    createStars();
+    // small timeout to ensure elements are attached and sizes settled
+    setTimeout(observeStars, 80);
+  }
+
+  // initial build after load
+  window.addEventListener('load', () => {
+    rebuild();
+    // if your page changes height later (images/fonts), watch for it
+    // use a MutationObserver to detect DOM changes (safe & conservative)
+    const mo = new MutationObserver(() => {
+      // debounce
+      if (window._starDebounce) clearTimeout(window._starDebounce);
+      window._starDebounce = setTimeout(() => {
+        setLayerHeight();
+        // if page height increased a lot, re-create to fill new area
+        // (optional: only if change is large)
+        rebuild();
+      }, 350);
+    });
+    mo.observe(document.body, { childList: true, subtree: true, attributes: false });
+  });
+
+  // also rebuild on resize/orientation change
+  window.addEventListener('resize', () => {
+    if (window._starResize) clearTimeout(window._starResize);
+    window._starResize = setTimeout(() => {
+      rebuild();
+    }, 300);
+  });
+
+  // If you programmatically change page style to 'overflow:hidden' remove it,
+  // stars won't reveal properly when page is locked; ensure overflow:auto/visible on <html> and <body>.
+})();
+</script>
+</body>
+</html>
